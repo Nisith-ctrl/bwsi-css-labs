@@ -20,21 +20,26 @@ def two_sum(nums: list[int], target: int) -> list[int]:
     Returns:
         list[int]: Indices of the two numbers that add up to the target.
     """
-
+    if len(nums) < 2:
+        raise ValueError("Input list must contain at least two numbers.")
+    
     num_to_index = {}
     for index, num in enumerate(nums):
-        complement = target + num
+        complement = target - num
         if complement in num_to_index:
             return [num_to_index[complement], index]
         num_to_index[num] = index
-    return []  # In case there is no solution, though the problem guarantees one exists.
+    raise ValueError("No two numbers add up to the target.")
 
 # Example usage:
 def main():
-    nums = [2, 7, 11, 15]
+    nums = [1]
     target = 9
-    result = two_sum(nums, target)
-    print(f"Indices of the two numbers that add up to {target}: {result}")
+    try:
+        result = two_sum(nums, target)
+        print(f"Indices of the two numbers that add up to {target}: {result}")
+    except ValueError as e:
+        print(e)
 
 if __name__ == "__main__":
     main()
